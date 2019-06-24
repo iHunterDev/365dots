@@ -1,0 +1,82 @@
+.container_today {
+    margin: 0 auto;
+    background: #2f3640;
+    padding: 5px;
+    border-radius: 0 0 5px 5px;
+}
+/* 头部 */
+.header_today {
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    font-size: 20px;
+    position: relative;
+}
+.header_today .year_today {
+    color: white;
+    position: absolute;
+    left: 5px;
+}
+.header_today .per_today {
+    color: #E03255;
+    font-weight: 900;
+}
+.header_today .detail_today {
+    color: #BCF745;
+    position: absolute;
+    right: 5px;
+    top: 0px;
+}
+/* 天数 */
+.dots_today .dot_today {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    background: #34645D;
+    margin: 0 2px;
+}
+.dots_today .active_today {
+    background: #14F7CD;
+}
+/* 动画 */
+/* chrome */
+@-webkit-keyframes stars{
+    0% {
+        background: #34645D;
+    }
+    25% {
+        background: #14F7CD;
+    }
+    50% {
+        background: #34645D;
+    }
+    75% {
+        background: #14F7CD;
+    }
+    100% {
+        background: #34645D;
+    }
+}
+/* firefox */
+@-moz-keyframes stars{
+    0% {
+        background: #34645D;
+    }
+    25% {
+        background: #14F7CD;
+    }
+    50% {
+        background: #34645D;
+    }
+    75% {
+        background: #14F7CD;
+    }
+    100% {
+        background: #34645D;
+    }
+}
+.lamp_today {
+    -webkit-animation: stars 3s ease 0s infinite;
+    -moz-animation: stars 3s ease 0s infinite;
+}
