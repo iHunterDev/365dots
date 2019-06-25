@@ -8,8 +8,8 @@ Today = {
         per: 0
     },
     init: function (ele) {
-        this.data.year_sum = this.getYearDayNum()
-        this.data.today_sum = this.getToDay()
+        this.data.year_sum = this.getDayNum()
+        this.data.today_sum = this.getDayNum(this.data.month)
         this.data.per = Math.floor(this.data.today_sum / this.data.year_sum * 100) + '%'
 
         this.createLayout(ele)
@@ -82,22 +82,20 @@ Today = {
         return dot
     },
     // 获取全年天数
-    getYearDayNum: function () {
+    getDayNum: function (month) {
+
+        // 如果为设置月份则默认获取全年的天数
+        if (! month) month = 12
+
         var days = 0
-        for (var i = 1; i < 13; i++) {
+        for (var i = 1; i <= month; i++) {
             var d = new Date(this.data.year, i, 0)
             days += d.getDate()
         }
-        return days
-    },
-    // 获取从本年1月1日到现在的天数
-    getToDay: function () {
-        var days = 0
-        for (var i = 1; i <= this.data.month; i++) {
-            var d = new Date(this.data.year, i, 0)
-            days += d.getDate()
-        }
-        days += this.data.day
+
+        // 如果不是获取全年的则加上当月已过天数, 原因是因为js获取到的月份是以 0 开始代表一月, 所以上面for循环只会计算到上一个月的天数
+        if (month != 12) days += this.data.day
+
         return days
     }
 }
