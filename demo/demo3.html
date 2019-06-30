@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Demo3 新增的配置 by wzblog(惜梦)</title>
+    <link rel="stylesheet" href="../src/Today.css">
+    <style>
+        /* 这个style跟核心代码无关, 只是用来设置演示框的大小 */
+        .today1 {
+            width: 100%
+        }
+        .today2 {
+            width: 75%
+        }
+        .today3 {
+            width: 50%
+        }
+        .today4 {
+            width: 25%
+        }
+        div {
+            margin-bottom: 10px
+        }
+    </style>
+</head>
+<body>
+    <!-- 该文件演示了外联情况下的不同大小的显示效果 -->
+    <div class="today1">
+        
+    </div>
+    <div class="today2">
+        
+    </div>
+    <div class="today3">
+        
+    </div>
+    <div class="today4">
+        
+    </div>
+<script src="../src/jquery-3.1.1.min.js"></script>
+<script src="../src/Today.js"></script>
+<script>
+    // 默认 不给月日加前导0
+    Today.config.zero = false
+    /* 初始化 */
+    Today.init('.today1')
+
+    // 只给月加前导0
+    Today.config.zero = 'm'
+    Today.init('.today2')
+
+    // 只给日加前导0
+    Today.config.zero = 'd'
+    Today.init('.today3')
+    
+    // 给月日加前导0
+    Today.config.zero = 'full'
+    Today.init('.today4')
+</script>
+</body>
+</html>
