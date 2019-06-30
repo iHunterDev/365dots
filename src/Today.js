@@ -5,7 +5,11 @@ Today = {
         day: new Date().getDate(),
         year_sum: 0,
         today_sum: 0,
-        per: 0
+        per: 0,
+        click_func: function(){console.dir('打印自己的DOM对象：');console.dir(this)}
+    },
+    config: {
+        zero: false, // 三个选项: false=不转换；m=仅月份转；d=仅天数转；full=全部都转
     },
     init: function (ele) {
         this.data.year_sum = this.getDayNum()
@@ -51,19 +55,27 @@ Today = {
 
         // 插入点
         
-        for (var i = 0; i < this.data.year_sum; i++) {
-            var dot
+        for (var m = 1; m <= 12; m++) {
+            var monthDay = new Date(2019, m, 0).getDate()
 
-            if (i < this.data.today_sum) {
-                dot = this.createDot(true)
-                if (i == this.data.today_sum - 1) {
-                    dot.addClass('lamp_today')
+            for (var d = 1; d <= monthDay; d++) {
+
+                var dot
+
+                if (m <= (this.data.month + 1) || (m == (this.data.month + 1) && d <= this.data.month)) {
+                    dot = this.createDot(m, d, true)
+
+                    if (m == (this.data.month + 1) && d == this.data.day) {
+                        dot.addClass('lamp_today')
+                    }
+                } else {
+                    dot = this.createDot(m, d)
                 }
-            } else {
-                dot = this.createDot()
+
+                dots.append(dot)
+            
             }
 
-            dots.append(dot)
         }
 
         container.append(dots)
@@ -72,12 +84,49 @@ Today = {
         $(ele).append(container)
     },
     // 创建点
-    createDot: function (mark) {
+    createDot: function (month, day, mark) {
         var dot = $('<a></a>').addClass('dot_today')
 
         if (mark === true) {
             dot.addClass('active_today')
         }
+
+        // 添加年月日属性，方便二次开发的需要
+        dot.attr('data-year', this.data.year)
+        dot.attr('data-month', month)
+        dot.attr('data-day', day)
+
+        // 添加由年月日组成的id，方便二次开发获取熟悉 格式为：time_ + 年月日 最终结果: time_20190630
+
+        // 给月和日补零，保证所有数字都在两位数
+        // 设置一个开关根据不同需要来设置
+        switch(this.config.zero)
+        {
+            case 'm':
+                if (month < 10) {
+                    month = '0' + month
+                }
+                break;
+            case 'd':
+                if (day < 10) {
+                    day = '0' + day
+                }
+                break;
+            case 'full':
+                if (month < 10) {
+                    month = '0' + month
+                }
+                if (day < 10) {
+                    day = '0' + day
+                }
+                break;
+        }
+
+        // 给dot天加上id给二次开发用于操作
+        dot.attr('id', 'time_' + this.data.year + month + day)
+
+        // 给dot添加点击回调
+        dot.click(this.data.click_func)
 
         return dot
     },
