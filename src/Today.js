@@ -62,7 +62,7 @@ Today = {
 
                 var dot
 
-                if (m <= (this.data.month + 1) || (m == (this.data.month + 1) && d <= this.data.month)) {
+                if (m < (this.data.month + 1) || (m == (this.data.month + 1) && d <= this.data.day)) {
                     dot = this.createDot(m, d, true)
 
                     if (m == (this.data.month + 1) && d == this.data.day) {
@@ -71,7 +71,6 @@ Today = {
                 } else {
                     dot = this.createDot(m, d)
                 }
-
                 dots.append(dot)
             
             }
